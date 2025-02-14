@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">fitrahmind-app</string>
+    <string name="features_title">Features</string>
+    <string name="event_title">Upcoming Events</string>
+    <string name="hot_features_title">Hot Features</string>
+    <string name="trending_article_title">Trending Articles</string>
+    <string name="upcoming_events_title">Upcoming Events</string>
+</resources>

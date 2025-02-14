@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "32902593330",
+    "project_id": "quran-database",
+    "storage_bucket": "quran-database.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32902593330:android:29be6c4e5bb009fab3b52b",
+        "android_client_info": {
+          "package_name": "com.bignerdranch.fitrahmind_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWZJ07-jTP1kNWBsCPZUoh5xt3yNLUDVc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
