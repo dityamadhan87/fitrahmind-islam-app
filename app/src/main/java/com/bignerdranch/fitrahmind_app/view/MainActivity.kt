@@ -25,9 +25,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bignerdranch.fitrahmind_app.R
+import com.bignerdranch.fitrahmind_app.repository.SuratRepository
 import com.bignerdranch.fitrahmind_app.ui.theme.FitrahmindappTheme
 
 class MainActivity : ComponentActivity() {
+//    private val repository = SuratRepository()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,6 +37,8 @@ class MainActivity : ComponentActivity() {
             FitrahmindappTheme {
                 MainScreen()
             }
+//            repository.uploadSurat()
+//            repository.uploadAyat()
         }
     }
 }
@@ -95,7 +99,11 @@ fun MainScreen() {
                 composable(Screen.Home.route) { HomePage() }
                 composable(Screen.Profile.route) { ProfileScreen() }
                 composable(Screen.Article.route) { ArticleScreen() }
-                composable(Screen.Quran.route) { QuranScreen() }
+                composable(Screen.Quran.route) { QuranScreen(navController) }
+                composable("surat/{idSurat}"){ backStackEntry ->
+                    val idSurat = backStackEntry.arguments?.getString("idSurat") ?: ""
+                    QuranDetailsScreen(idSurat)
+                }
             }
         }
     }
@@ -110,8 +118,8 @@ fun MainScreenPreview() {
 }
 
 sealed class Screen (val route: String, val icon: Int){
-    object Home : Screen("Home", R.drawable.fluent_home_32_regular)
-    object Article : Screen("Fitrah Article", R.drawable.hugeicons_quran_01)
-    object Quran : Screen("Al-Qur'an", R.drawable.hugeicons_quran_01)
-    object Profile : Screen("Profile", R.drawable.iconamoon_profile)
+    object Home : Screen("home", R.drawable.fluent_home_32_regular)
+    object Article : Screen("fitrahArticle", R.drawable.hugeicons_quran_01)
+    object Quran : Screen("quran", R.drawable.hugeicons_quran_01)
+    object Profile : Screen("profile", R.drawable.iconamoon_profile)
 }

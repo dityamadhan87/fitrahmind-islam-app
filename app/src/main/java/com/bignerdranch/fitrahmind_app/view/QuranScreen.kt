@@ -44,10 +44,11 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.navigation.NavController
 import com.bignerdranch.fitrahmind_app.model.Surat
 
 @Composable
-fun QuranScreen(viewModel: SuratsViewModel = viewModel()) {
+fun QuranScreen(navController: NavController, viewModel: SuratsViewModel = viewModel()) {
     val surats by viewModel.surats.collectAsState()
     LazyColumn(
         modifier = Modifier
@@ -70,7 +71,7 @@ fun QuranScreen(viewModel: SuratsViewModel = viewModel()) {
 
         items(surats){surat ->
             QuranListItem(surat){
-
+                navController.navigate("surat/${surat.idSurat}")
             }
         }
     }
@@ -235,10 +236,10 @@ fun SurahNumberBadge(number: Int) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun QuranScreenPreview(){
-    FitrahmindappTheme{
-        QuranScreen()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun QuranScreenPreview(){
+//    FitrahmindappTheme{
+//        QuranScreen()
+//    }
+//}
