@@ -8,7 +8,7 @@ import com.bignerdranch.fitrahmind_app.model.Ayat
 import com.bignerdranch.fitrahmind_app.repository.SuratRepository
 
 class AyatSuratViewModel (private val repository: SuratRepository = SuratRepository()): ViewModel(){
-    private val _ayatList = mutableStateOf<List<Ayat>>(emptyList())
+    private val _ayatList = mutableStateOf(emptyList<Ayat>())
     val ayatList: State<List<Ayat>> = _ayatList
 
     fun fetchAyat(idSurat: String){

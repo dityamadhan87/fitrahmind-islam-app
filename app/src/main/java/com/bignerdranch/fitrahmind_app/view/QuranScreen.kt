@@ -22,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -49,7 +50,12 @@ import com.bignerdranch.fitrahmind_app.model.Surat
 
 @Composable
 fun QuranScreen(navController: NavController, viewModel: SuratsViewModel = viewModel()) {
-    val surats by viewModel.surats.collectAsState()
+
+    LaunchedEffect(Unit){
+        viewModel.fetchSurat()
+    }
+
+    val surats by viewModel.suratList
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()

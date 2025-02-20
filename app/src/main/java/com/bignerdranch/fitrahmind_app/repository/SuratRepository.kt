@@ -6,14 +6,10 @@ import com.bignerdranch.fitrahmind_app.model.Ayat
 import com.bignerdranch.fitrahmind_app.model.Surat
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 class SuratRepository {
     private val db = Firebase.firestore
     private val suratCollection = db.collection("surat")
-    private val _surats = MutableStateFlow<List<Surat>>(emptyList())
-    val surats : StateFlow<List<Surat>> = _surats
 
     private val suratList = listOf(
         Surat(1, "Al-Fatihah", "Pembukaan", 7, "الفاتحة"),
@@ -175,10 +171,10 @@ class SuratRepository {
         suratList.forEach { surat ->
             suratCollection.document(surat.idSurat.toString()).set(surat)
                 .addOnSuccessListener {
-                    Log.d(TAG, "Upload surat berhasil")
+                    Log.d(TAG, "Upload surat ${surat.namaSurat} berhasil")
                 }
                 .addOnFailureListener { e ->
-                    Log.w(TAG, "Upload surat gagal", e)
+                    Log.w(TAG, "Upload surat ${surat.namaSurat} gagal", e)
                 }
         }
     }
@@ -193,25 +189,28 @@ class SuratRepository {
                     .collection("ayat").document(ayat.idAyat.toString()) // Subkoleksi ayat
                     .set(ayat)
                     .addOnSuccessListener {
-                        Log.d(TAG, "Upload ayat berhasil: Surat ${surat.idSurat}, Ayat ${ayat.idAyat}")
+                        Log.d(TAG, "Upload ayat berhasil: Surat ${surat.namaSurat}, Ayat ${ayat.idAyat}")
                     }
                     .addOnFailureListener { e ->
-                        Log.w(TAG, "Upload ayat gagal: Surat ${surat.idSurat}, Ayat ${ayat.idAyat}", e)
+                        Log.w(TAG, "Upload ayat gagal: Surat ${surat.namaSurat}, Ayat ${ayat.idAyat}", e)
                     }
             }
         }
     }
 
-    fun getListSurat(){
+    fun getListSurat(
+        onSuccess: (List<Surat>) -> Unit,
+        onFailure: (Exception) -> Unit
+    ){
         suratCollection
             .orderBy("idSurat")
             .get()
             .addOnSuccessListener{ result ->
-                val list = result.documents.mapNotNull { it.toObject(Surat::class.java) }
-                _surats.value = list
+                val suratList = result.documents.mapNotNull { doc -> doc.toObject(Surat::class.java) }
+                onSuccess(suratList)
             }
             .addOnFailureListener{ exception ->
-                Log.e("FirestoreError", "Error fetching restaurants: ", exception)
+                onFailure(exception)
             }
     }
 
