@@ -1,4 +1,4 @@
-package com.bignerdranch.fitrahmind_app.view
+package com.bignerdranch.fitrahmind_app.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,17 +15,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bignerdranch.fitrahmind_app.R
-import com.bignerdranch.fitrahmind_app.repository.SuratRepository
+import androidx.compose.runtime.setValue
 import com.bignerdranch.fitrahmind_app.ui.theme.FitrahmindappTheme
 
 class MainActivity : ComponentActivity() {
@@ -41,6 +39,14 @@ class MainActivity : ComponentActivity() {
 //            repository.uploadAyat()
         }
     }
+}
+
+
+sealed class Screen (val route: String, val icon: Int){
+    object Home : Screen("home", R.drawable.fluent_home_32_regular)
+    object Article : Screen("fitrahArticle", R.drawable.hugeicons_quran_01)
+    object Quran : Screen("quran", R.drawable.hugeicons_quran_01)
+    object Profile : Screen("profile", R.drawable.iconamoon_profile)
 }
 
 @Composable
@@ -77,49 +83,45 @@ fun BottomNavigationBar(navController: NavController) {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
     var showSplash by remember { mutableStateOf(true) }
 
-    if (showSplash){
+    if (showSplash) {
         splashScreen(
             onSplashEnd = {
                 showSplash = false
             }
         )
-    }
-
-    else{
+    } else {
         Scaffold(
-            bottomBar = { BottomNavigationBar(navController) }
+            bottomBar = {
+                if (currentRoute in
+                    listOf(
+                        Screen.Home.route,
+                        Screen.Profile.route,
+                        Screen.Article.route,
+                        Screen.Quran.route
+                    )
+                ) {
+                    BottomNavigationBar(navController)
+                }
+            }
         ) { innerPadding ->
             NavHost(
                 navController = navController,
-                startDestination = Screen.Home.route,
+                startDestination = Screen.Quran.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(Screen.Home.route) { HomePage() }
-                composable(Screen.Profile.route) { ProfileScreen() }
-                composable(Screen.Article.route) { ArticleScreen() }
+//                composable(Screen.Profile.route) { ProfileScreen() }
+//                composable(Screen.Article.route) { ArticleScreen() }
                 composable(Screen.Quran.route) { QuranScreen(navController) }
-                composable("surat/{idSurat}"){ backStackEntry ->
+                composable("surat/{idSurat}") { backStackEntry ->
                     val idSurat = backStackEntry.arguments?.getString("idSurat") ?: ""
                     QuranDetailsScreen(idSurat)
                 }
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MainScreenPreview() {
-    FitrahmindappTheme {
-        MainScreen()
-    }
-}
-
-sealed class Screen (val route: String, val icon: Int){
-    object Home : Screen("home", R.drawable.fluent_home_32_regular)
-    object Article : Screen("fitrahArticle", R.drawable.hugeicons_quran_01)
-    object Quran : Screen("quran", R.drawable.hugeicons_quran_01)
-    object Profile : Screen("profile", R.drawable.iconamoon_profile)
 }

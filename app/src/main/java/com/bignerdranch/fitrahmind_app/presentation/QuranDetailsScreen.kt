@@ -1,16 +1,21 @@
-package com.bignerdranch.fitrahmind_app.view
+package com.bignerdranch.fitrahmind_app.presentation
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import com.bignerdranch.fitrahmind_app.R
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
@@ -18,7 +23,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.bignerdranch.fitrahmind_app.viewmodel.AyatSuratViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.bignerdranch.fitrahmind_app.model.Ayat
+import com.bignerdranch.fitrahmind_app.domain.models.Ayat
 
 @Composable
 fun QuranDetailsScreen(idSurat: String, viewModel: AyatSuratViewModel = viewModel()){
@@ -63,6 +67,7 @@ fun QuranDetailsScreen(idSurat: String, viewModel: AyatSuratViewModel = viewMode
                     },
                     ayat = ayat
                 )
+                Spacer(modifier = Modifier.height(30.dp))
             }
         }
     }
@@ -77,7 +82,9 @@ fun TopNav(
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(onClick = { onBackClick }) {
@@ -87,13 +94,33 @@ fun TopNav(
             )
         }
         Button(
-            onClick = { onSuratClick }
+            onClick = { onSuratClick },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Transparent,
+                contentColor = Color.Black
+            )
         ){
-            Row(){
-                Text(text = "Al-Baqarah")
-                Icon(
-                    painter = painterResource(id = R.drawable.arrow_down_icon),
-                    contentDescription = "Dropdown"
+            Column(
+
+            ){
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    Text(
+                        text = "Al-Baqarah",
+                        fontFamily = FontFamily(Font(R.font.inria_sans)),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+                    Icon(
+                        painter = painterResource(id = R.drawable.arrow_down_bold_icon),
+                        contentDescription = "Dropdown"
+                    )
+                }
+                Text(
+                    text = "Sapi Betina",
+                    fontFamily = FontFamily(Font(R.font.inria_sans)),
+                    fontSize = 16.sp
                 )
             }
         }
@@ -120,7 +147,9 @@ fun TopNavKedua(
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         OutlinedButton(
@@ -154,7 +183,11 @@ fun ItemAyat(
     onPenNoteClick: () -> Unit,
     onOtherClick: () -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+    ) {
         Text(
             text = ayat.teksArab,
             fontFamily = FontFamily(Font(R.font.lpmq)),
@@ -166,13 +199,19 @@ fun ItemAyat(
         )
         Column {
             Text(
-                text = ayat.abjadArab
+                text = ayat.abjadArab,
+                fontFamily = FontFamily(Font(R.font.inter)),
+                color = Color.Black.copy(alpha = 0.6f)
             )
             Text(
-                text = ayat.artiIndonesia
+                text = ayat.artiIndonesia,
+                fontFamily = FontFamily(Font(R.font.inter)),
+                color = Color.Black
             )
         }
-        Row {
+        Row(
+            modifier = Modifier.align(Alignment.End)
+        ) {
             IconButton(onClick = onNotesClick){
                 Icon(
                     painter = painterResource(id = R.drawable.notes_icon),
@@ -199,4 +238,8 @@ fun ItemAyat(
             }
         }
     }
+    HorizontalDivider(
+        thickness = 1.dp,
+        color = Color.Black,
+    )
 }

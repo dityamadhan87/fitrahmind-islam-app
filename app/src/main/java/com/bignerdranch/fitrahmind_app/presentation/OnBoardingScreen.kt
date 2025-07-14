@@ -1,4 +1,4 @@
-package com.bignerdranch.fitrahmind_app.view
+package com.bignerdranch.fitrahmind_app.presentation
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

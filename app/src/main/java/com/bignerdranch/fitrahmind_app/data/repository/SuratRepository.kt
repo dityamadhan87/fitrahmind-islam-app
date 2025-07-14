@@ -1,9 +1,9 @@
-package com.bignerdranch.fitrahmind_app.repository
+package com.bignerdranch.fitrahmind_app.data.repository
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.bignerdranch.fitrahmind_app.model.Ayat
-import com.bignerdranch.fitrahmind_app.model.Surat
+import com.bignerdranch.fitrahmind_app.domain.models.Ayat
+import com.bignerdranch.fitrahmind_app.domain.models.Surat
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 
@@ -129,42 +129,42 @@ class SuratRepository {
     )
 
     private val listAyat = listOf(
-        Ayat(1, 1, "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ", "Bismillāhir-raḥmānir-raḥīm(i)", "Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang"),
-        Ayat(2, 1, "اَلْحَمْدُ لِلّٰهِ رَبِّ الْعٰلَمِيْنَۙ", "Al-ḥamdu lillāhi rabbil-‘ālamīn(a)", "Segala puji bagi Allah, Tuhan semesta alam"),
-        Ayat(3, 1, "الرَّحْمٰنِ الرَّحِيْمِۙ", "Ar-raḥmānir-raḥīm(i)", "Yang Maha Pengasih lagi Maha Penyayang"),
-        Ayat(4, 1, "مٰلِكِ يَوْمِ الدِّيْنِۗ", "Māliki yaumid-dīn(i)", "Pemilik hari Pembalasan"),
-        Ayat(5, 1, "اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُۗ", "Iyyāka na‘budu wa iyyāka nasta‘īn(u)", "Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami memohon pertolongan"),
-        Ayat(6, 1, "اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَۙ", "Ihdinaṣ-ṣirāṭal-mustaqīm(a)", "Bimbinglah kami ke jalan yang lurus"),
-        Ayat(7, 1, "صِرَاطَ الَّذِيْنَ اَنْعَمْتَ عَلَيْهِمْ ەۙ غَيْرِ الْمَغْضُوْبِ عَلَيْهِمْ وَلَا الضَّاۤلِّيْنَࣖ", "Ṣirāṭal-lażīna an‘amta ‘alaihim, gairil-magḍūbi ‘alaihim wa laḍ-ḍāllīn(a)", "(yaitu) jalan orang-orang yang telah Engkau beri nikmat, bukan (jalan) mereka yang dimurkai dan bukan (pula jalan) orang-orang yang sesat"),
-        Ayat(1, 109, "قُلْ يٰٓاَيُّهَا الْكٰفِرُوْنَۙ", "Qul yā ayyuhal-kāfirūn(a).", "Katakanlah (Nabi Muhammad), \"Wahai orang-orang kafir,"),
-        Ayat(2, 109, "لَآ اَعْبُدُ مَا تَعْبُدُوْنَۙ", "Lā a'budu mā ta'budūn(a).", "aku tidak akan menyembah apa yang kamu sembah."),
-        Ayat(3, 109, "وَلَآ اَنْتُمْ عٰبِدُوْنَ مَآ اَعْبُدُۚ", "Wa lā antum 'ābidūna mā a'bud(u).", "Kamu juga bukan penyembah apa yang aku sembah."),
-        Ayat(4, 109, "وَلَآ اَنَا۠ عَابِدٌ مَّا عَبَدْتُّمْۙ", "Wa lā ana 'ābidum mā 'abattum.", "Aku juga tidak pernah menjadi penyembah apa yang kamu sembah."),
-        Ayat(5, 109, "وَلَآ اَنْتُمْ عٰبِدُوْنَ مَآ اَعْبُدُۗ", "Wa lā antum 'ābidūna mā a'bud(u).", "Kamu tidak pernah (pula) menjadi penyembah apa yang aku sembah."),
-        Ayat(6, 109, "لَكُمْ دِيْنُكُمْ وَلِيَ دِيْنِࣖ", "Lakum dīnukum wa liya dīn(i).", "Untukmu agamamu dan untukku agamaku.\""),
-        Ayat(1, 110, "اِذَا جَاۤءَ نَصْرُ اللّٰهِ وَالْفَتْحُۙ", "Iżā jā'a naṣrullāhi wal-fatḥ(u).", "Apabila telah datang pertolongan Allah dan kemenangan"),
-        Ayat(2, 110, "وَرَاَيْتَ النَّاسَ يَدْخُلُوْنَ فِيْ دِيْنِ اللّٰهِ اَفْوَاجًاۙ", "Wa ra'aitan-nāsa yadkhulūna fī dīnillāhi afwājā(n).", "dan engkau melihat manusia berbondong-bondong masuk agama Allah,"),
-        Ayat(3, 110, "فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُۗ اِنَّهٗ كَانَ تَوَّابًاࣖ", "Fasabbiḥ biḥamdi rabbika wastagfirh(u), innahū kāna tawwābā(n).", "bertasbihlah dengan memuji Tuhanmu dan mohonlah ampun kepada-Nya. Sesungguhnya Dia Maha Penerima tobat."),
-        Ayat(1, 111, "تَبَّتْ يَدَآ اَبِيْ لَهَبٍ وَّتَبَّۗ", "Tabbat yadā abī lahabiw wa tabb(a).", "Binasalah kedua tangan Abu Lahab dan benar-benar binasa dia."),
-        Ayat(2, 111, "مَآ اَغْنٰى عَنْهُ مَالُهٗ وَمَا كَسَبَۗ", "Mā agnā 'anhu māluhū wa mā kasab(a).", "Tidaklah berguna baginya hartanya dan apa yang dia usahakan."),
-        Ayat(3, 111, "سَيَصْلٰى نَارًا ذَاتَ لَهَبٍۙ", "Sayaṣlā nāran żāta lahab(in).", "Kelak dia akan memasuki api yang bergejolak (neraka),"),
-        Ayat(4, 111, "وَّامْرَاَتُهٗ ۗحَمَّالَةَ الْحَطَبِۚ", "Wamra'atuh(ū), ḥammālatal-ḥaṭab(i).", "(begitu pula) istrinya, pembawa kayu bakar (penyebar fitnah)."),
-        Ayat(5, 111, "فِيْ جِيْدِهَا حَبْلٌ مِّنْ مَّسَدٍࣖ", "Fī jīdihā ḥablum mim masad(in).", "Di lehernya ada tali dari sabut yang dipintal."),
-        Ayat(1, 112, "قُلْ هُوَ اللّٰهُ اَحَدٌۚ", "Qul huwallāhu aḥad(un).", "Katakanlah (Nabi Muhammad), \"Dialah Allah Yang Maha Esa."),
-        Ayat(2, 112, "اَللّٰهُ الصَّمَدُۚ", "Allāhuṣ-ṣamad(u).", "Allah tempat meminta segala sesuatu."),
-        Ayat(3, 112, "لَمْ يَلِدْ وَلَمْ يُوْلَدْۙ", "Lam yalid wa lam yūlad.", "Dia tidak beranak dan tidak pula diperanakkan"),
-        Ayat(4, 112, "وَلَمْ يَكُنْ لَّهٗ كُفُوًا اَحَدٌࣖ", "Wa lam yakul lahū kufuwan aḥad(un).", "serta tidak ada sesuatu pun yang setara dengan-Nya."),
-        Ayat(1, 113, "قُلْ اَعُوْذُ بِرَبِّ الْفَلَقِۙ", "Qul a'ūżu birabbil-falaq(i).", "Katakanlah (Nabi Muhammad), \"Aku berlindung kepada Tuhan yang (menjaga) fajar (subuh)"),
-        Ayat(2, 113, "مِنْ شَرِّ مَا خَلَقَۙ", "Min syarri mā khalaq(a).", "dari kejahatan (makhluk yang) Dia ciptakan,"),
-        Ayat(3, 113, "وَمِنْ شَرِّ غَاسِقٍ اِذَا وَقَبَۙ", "Wa min syarri gāsiqin iżā waqab(a).", "dari kejahatan malam apabila telah gelap gulita,"),
-        Ayat(4, 113, "وَمِنْ شَرِّ النَّفّٰثٰتِ فِى الْعُقَدِۙ", "Wa min syarrin-naffāṡāti fil-'uqad(i).", "dari kejahatan perempuan-perempuan (penyihir) yang meniup pada buhul-buhul (talinya),"),
-        Ayat(5, 113, "وَمِنْ شَرِّ حَاسِدٍ اِذَا حَسَدَࣖ", "Wa min syarri ḥāsidin iżā ḥasad(a).", "dan dari kejahatan orang yang dengki apabila dia dengki.\""),
-        Ayat(1, 114, "قُلْ اَعُوْذُ بِرَبِّ النَّاسِۙ", "Qul a'ūżu birabbin-nās(i).", "Katakanlah (Nabi Muhammad), \"Aku berlindung kepada Tuhan manusia,"),
-        Ayat(2, 114, "مَلِكِ النَّاسِۙ", "Malikin-nās(i).", "raja manusia,"),
-        Ayat(3, 114, "اِلٰهِ النَّاسِۙ", "Ilāhin-nās(i).", "sembahan manusia"),
-        Ayat(4, 114, "مِنْ شَرِّ الْوَسْوَاسِ ەۙ الْخَنَّاسِۖ", "Min syarril-waswāsil-khannās(i).", "dari kejahatan (setan) pembisik yang bersembunyi"),
-        Ayat(5, 114, "الَّذِيْ يُوَسْوِسُ فِيْ صُدُوْرِ النَّاسِۙ", "Allażī yuwaswisu fī ṣudūrin-nās(i).", "yang membisikkan (kejahatan) ke dalam dada manusia,"),
-        Ayat(6, 114, "مِنَ الْجِنَّةِ وَالنَّاسِࣖ", "Minal jinnati wan-nās(i).", "dari (golongan) jin dan manusia.\""),
+        Ayat(1, 1, 1 ,"بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ", "Bismillāhir-raḥmānir-raḥīm(i)", "Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang"),
+        Ayat(2, 1, 1,"اَلْحَمْدُ لِلّٰهِ رَبِّ الْعٰلَمِيْنَۙ", "Al-ḥamdu lillāhi rabbil-‘ālamīn(a)", "Segala puji bagi Allah, Tuhan semesta alam"),
+        Ayat(3, 1, 1,"الرَّحْمٰنِ الرَّحِيْمِۙ", "Ar-raḥmānir-raḥīm(i)", "Yang Maha Pengasih lagi Maha Penyayang"),
+        Ayat(4, 1, 1,"مٰلِكِ يَوْمِ الدِّيْنِۗ", "Māliki yaumid-dīn(i)", "Pemilik hari Pembalasan"),
+        Ayat(5, 1, 1,"اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُۗ", "Iyyāka na‘budu wa iyyāka nasta‘īn(u)", "Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami memohon pertolongan"),
+        Ayat(6, 1, 1,"اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَۙ", "Ihdinaṣ-ṣirāṭal-mustaqīm(a)", "Bimbinglah kami ke jalan yang lurus"),
+        Ayat(7, 1, 1,"صِرَاطَ الَّذِيْنَ اَنْعَمْتَ عَلَيْهِمْ ەۙ غَيْرِ الْمَغْضُوْبِ عَلَيْهِمْ وَلَا الضَّاۤلِّيْنَࣖ", "Ṣirāṭal-lażīna an‘amta ‘alaihim, gairil-magḍūbi ‘alaihim wa laḍ-ḍāllīn(a)", "(yaitu) jalan orang-orang yang telah Engkau beri nikmat, bukan (jalan) mereka yang dimurkai dan bukan (pula jalan) orang-orang yang sesat"),
+        Ayat(1, 109, 30,"قُلْ يٰٓاَيُّهَا الْكٰفِرُوْنَۙ", "Qul yā ayyuhal-kāfirūn(a).", "Katakanlah (Nabi Muhammad), \"Wahai orang-orang kafir,"),
+        Ayat(2, 109, 30,"لَآ اَعْبُدُ مَا تَعْبُدُوْنَۙ", "Lā a'budu mā ta'budūn(a).", "aku tidak akan menyembah apa yang kamu sembah."),
+        Ayat(3, 109, 30,"وَلَآ اَنْتُمْ عٰبِدُوْنَ مَآ اَعْبُدُۚ", "Wa lā antum 'ābidūna mā a'bud(u).", "Kamu juga bukan penyembah apa yang aku sembah."),
+        Ayat(4, 109, 30,"وَلَآ اَنَا۠ عَابِدٌ مَّا عَبَدْتُّمْۙ", "Wa lā ana 'ābidum mā 'abattum.", "Aku juga tidak pernah menjadi penyembah apa yang kamu sembah."),
+        Ayat(5, 109, 30,"وَلَآ اَنْتُمْ عٰبِدُوْنَ مَآ اَعْبُدُۗ", "Wa lā antum 'ābidūna mā a'bud(u).", "Kamu tidak pernah (pula) menjadi penyembah apa yang aku sembah."),
+        Ayat(6, 109, 30,"لَكُمْ دِيْنُكُمْ وَلِيَ دِيْنِࣖ", "Lakum dīnukum wa liya dīn(i).", "Untukmu agamamu dan untukku agamaku.\""),
+        Ayat(1, 110, 30,"اِذَا جَاۤءَ نَصْرُ اللّٰهِ وَالْفَتْحُۙ", "Iżā jā'a naṣrullāhi wal-fatḥ(u).", "Apabila telah datang pertolongan Allah dan kemenangan"),
+        Ayat(2, 110, 30,"وَرَاَيْتَ النَّاسَ يَدْخُلُوْنَ فِيْ دِيْنِ اللّٰهِ اَفْوَاجًاۙ", "Wa ra'aitan-nāsa yadkhulūna fī dīnillāhi afwājā(n).", "dan engkau melihat manusia berbondong-bondong masuk agama Allah,"),
+        Ayat(3, 110, 30,"فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُۗ اِنَّهٗ كَانَ تَوَّابًاࣖ", "Fasabbiḥ biḥamdi rabbika wastagfirh(u), innahū kāna tawwābā(n).", "bertasbihlah dengan memuji Tuhanmu dan mohonlah ampun kepada-Nya. Sesungguhnya Dia Maha Penerima tobat."),
+        Ayat(1, 111, 30,"تَبَّتْ يَدَآ اَبِيْ لَهَبٍ وَّتَبَّۗ", "Tabbat yadā abī lahabiw wa tabb(a).", "Binasalah kedua tangan Abu Lahab dan benar-benar binasa dia."),
+        Ayat(2, 111, 30,"مَآ اَغْنٰى عَنْهُ مَالُهٗ وَمَا كَسَبَۗ", "Mā agnā 'anhu māluhū wa mā kasab(a).", "Tidaklah berguna baginya hartanya dan apa yang dia usahakan."),
+        Ayat(3, 111, 30,"سَيَصْلٰى نَارًا ذَاتَ لَهَبٍۙ", "Sayaṣlā nāran żāta lahab(in).", "Kelak dia akan memasuki api yang bergejolak (neraka),"),
+        Ayat(4, 111, 30,"وَّامْرَاَتُهٗ ۗحَمَّالَةَ الْحَطَبِۚ", "Wamra'atuh(ū), ḥammālatal-ḥaṭab(i).", "(begitu pula) istrinya, pembawa kayu bakar (penyebar fitnah)."),
+        Ayat(5, 111, 30,"فِيْ جِيْدِهَا حَبْلٌ مِّنْ مَّسَدٍࣖ", "Fī jīdihā ḥablum mim masad(in).", "Di lehernya ada tali dari sabut yang dipintal."),
+        Ayat(1, 112, 30,"قُلْ هُوَ اللّٰهُ اَحَدٌۚ", "Qul huwallāhu aḥad(un).", "Katakanlah (Nabi Muhammad), \"Dialah Allah Yang Maha Esa."),
+        Ayat(2, 112, 30,"اَللّٰهُ الصَّمَدُۚ", "Allāhuṣ-ṣamad(u).", "Allah tempat meminta segala sesuatu."),
+        Ayat(3, 112, 30,"لَمْ يَلِدْ وَلَمْ يُوْلَدْۙ", "Lam yalid wa lam yūlad.", "Dia tidak beranak dan tidak pula diperanakkan"),
+        Ayat(4, 112, 30,"وَلَمْ يَكُنْ لَّهٗ كُفُوًا اَحَدٌࣖ", "Wa lam yakul lahū kufuwan aḥad(un).", "serta tidak ada sesuatu pun yang setara dengan-Nya."),
+        Ayat(1, 113, 30,"قُلْ اَعُوْذُ بِرَبِّ الْفَلَقِۙ", "Qul a'ūżu birabbil-falaq(i).", "Katakanlah (Nabi Muhammad), \"Aku berlindung kepada Tuhan yang (menjaga) fajar (subuh)"),
+        Ayat(2, 113, 30,"مِنْ شَرِّ مَا خَلَقَۙ", "Min syarri mā khalaq(a).", "dari kejahatan (makhluk yang) Dia ciptakan,"),
+        Ayat(3, 113, 30,"وَمِنْ شَرِّ غَاسِقٍ اِذَا وَقَبَۙ", "Wa min syarri gāsiqin iżā waqab(a).", "dari kejahatan malam apabila telah gelap gulita,"),
+        Ayat(4, 113, 30,"وَمِنْ شَرِّ النَّفّٰثٰتِ فِى الْعُقَدِۙ", "Wa min syarrin-naffāṡāti fil-'uqad(i).", "dari kejahatan perempuan-perempuan (penyihir) yang meniup pada buhul-buhul (talinya),"),
+        Ayat(5, 113, 30,"وَمِنْ شَرِّ حَاسِدٍ اِذَا حَسَدَࣖ", "Wa min syarri ḥāsidin iżā ḥasad(a).", "dan dari kejahatan orang yang dengki apabila dia dengki.\""),
+        Ayat(1, 114, 30,"قُلْ اَعُوْذُ بِرَبِّ النَّاسِۙ", "Qul a'ūżu birabbin-nās(i).", "Katakanlah (Nabi Muhammad), \"Aku berlindung kepada Tuhan manusia,"),
+        Ayat(2, 114, 30,"مَلِكِ النَّاسِۙ", "Malikin-nās(i).", "raja manusia,"),
+        Ayat(3, 114, 30,"اِلٰهِ النَّاسِۙ", "Ilāhin-nās(i).", "sembahan manusia"),
+        Ayat(4, 114, 30,"مِنْ شَرِّ الْوَسْوَاسِ ەۙ الْخَنَّاسِۖ", "Min syarril-waswāsil-khannās(i).", "dari kejahatan (setan) pembisik yang bersembunyi"),
+        Ayat(5, 114, 30,"الَّذِيْ يُوَسْوِسُ فِيْ صُدُوْرِ النَّاسِۙ", "Allażī yuwaswisu fī ṣudūrin-nās(i).", "yang membisikkan (kejahatan) ke dalam dada manusia,"),
+        Ayat(6, 114, 30,"مِنَ الْجِنَّةِ وَالنَّاسِࣖ", "Minal jinnati wan-nās(i).", "dari (golongan) jin dan manusia.\""),
     )
 
     fun uploadSurat() {
